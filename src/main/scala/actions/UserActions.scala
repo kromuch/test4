@@ -36,9 +36,10 @@ class UserActions(currentUser: String, db: Database) {
     val findAdmin: Option[Users] = Await.result(
       db.run(usersTableQuery.filter(_.name === currentUser).result.headOption),
       Duration.Inf)
+    val defaultAdminValue = Users("","",admin = false)
     if (findAdmin.isEmpty)
       println("Поточний користувач не знайдений (???)")
-    else if (findAdmin.get.admin) {
+    else if (findAdmin.getOrElse(defaultAdminValue).admin) {
       println("Введіть ім'я нового адміністратора:")
       val name = io.StdIn.readLine()
       println("Введіть пароль нового адміністратора:")
@@ -61,9 +62,10 @@ class UserActions(currentUser: String, db: Database) {
     val findAdmin: Option[Users] = Await.result(
       db.run(usersTableQuery.filter(_.name === currentUser).result.headOption),
       Duration.Inf)
+    val defaultAdminValue = Users("","",admin = false)
     if (findAdmin.isEmpty)
       println("Поточний користувач не знайдений (???)")
-    else if (findAdmin.get.admin) {
+    else if (findAdmin.getOrElse(defaultAdminValue).admin) {
       println("Введіть ім'я нового користувача:")
       val name = io.StdIn.readLine()
       println("Введіть пароль нового користувача:")
@@ -86,9 +88,10 @@ class UserActions(currentUser: String, db: Database) {
     val findAdmin: Option[Users] = Await.result(
       db.run(usersTableQuery.filter(_.name === currentUser).result.headOption),
       Duration.Inf)
+    val defaultAdminValue = Users("","",admin = false)
     if (findAdmin.isEmpty)
       println("Поточний користувач не знайдений (???)")
-    else if (findAdmin.get.admin) {
+    else if (findAdmin.getOrElse(defaultAdminValue).admin) {
       println("Введіть ім'я користувача для видалення:")
       val name = io.StdIn.readLine()
       if (name == currentUser)

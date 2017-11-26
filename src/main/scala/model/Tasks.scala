@@ -44,7 +44,8 @@ class TasksRepository(db: Database) {
     if (findById.isEmpty)
       println("Не знайдено справу з таким ID")
     else {
-      val oldValue = findById.get
+      val defaultTaskValue = Tasks(None,"Default",completed = false,currentUser)
+      val oldValue = findById.getOrElse(defaultTaskValue)
       val newTask =
         Tasks(oldValue.id, oldValue.text, !oldValue.completed, oldValue.owner)
       Await.result(db.run(tasksTableQuery.filter(_.id === id).update(newTask)),

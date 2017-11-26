@@ -9,8 +9,9 @@ class TaskActions(currentUser: String, db: Database) {
   val tasksTableQuery = TableQuery[TasksTable]
 
   def parseList(task: Tasks): String = {
+    val defaultIdValue = 0
     val completed = if (task.completed) "так" else "ні"
-    "ID: " + task.id.getOrElse(0) + ", Власник: " + task.owner +
+    "ID: " + task.id.getOrElse(defaultIdValue) + ", Власник: " + task.owner +
       ", Виконано: " + completed + ", Текст справи: " + task.text
   }
 

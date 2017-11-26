@@ -1,8 +1,9 @@
+import actions._
+import model._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import slick.jdbc.PostgresProfile.api._
-import model._
-import actions._
+
 
 class Menu(db: Database) {
 

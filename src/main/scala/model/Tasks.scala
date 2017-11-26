@@ -1,10 +1,10 @@
 package model
 
-import slick.lifted.Tag
-import slick.jdbc.PostgresProfile.api._
-import scala.concurrent.Future
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.concurrent.Future
+import slick.jdbc.PostgresProfile.api._
+import slick.lifted.Tag
 
 case class Tasks(id: Option[Long],
                  text: String,

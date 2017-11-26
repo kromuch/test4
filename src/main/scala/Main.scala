@@ -1,7 +1,7 @@
 import model._
-import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import slick.jdbc.PostgresProfile.api._
 
 object Main {
   val db = Database.forConfig("TODO")

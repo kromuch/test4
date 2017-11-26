@@ -2,9 +2,26 @@ import model._
 import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext.Implicits.global
+
 object Main {
-  val db = Database.forURL(
-    s"jdbc:postgres://gelgoteifnrxgi:6dad6061aee8baf4517d6a4222faa1aa9c6cb22bdbbd463059ea99fb9ed58bb3@ec2-176-34-110-252.eu-west-1.compute.amazonaws.com:5432/d4pnv1e7erhus5"
-  )
+  val db = Database.forConfig("TODO")
+  val usersRepository = new UsersRepository(db)
+  val tasksRepository = new TasksRepository(db)
+  def main(args: Array[String]): Unit = {
+    //init()
+    //fillDb()
+    val menu = new Menu(db)
+    menu.start()
+  }
+
+  def init(): Unit = {
+    Await.result(db.run(UsersTable.table.schema.create), Duration.Inf)
+    Await.result(db.run(TasksTable.table.schema.create), Duration.Inf)
+  }
+  def fillDb(): Unit = {
+    Await.result(usersRepository.create(Users("data", "data", admin = true)),
+                 Duration.Inf)
+    Await.result(usersRepository.create(Users("root", "root", admin = true)),
+                 Duration.Inf)
+  }
 }

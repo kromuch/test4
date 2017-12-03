@@ -8,10 +8,10 @@ object Main {
   val usersRepository = new UsersRepository(db)
   val tasksRepository = new TasksRepository(db)
   def main(args: Array[String]): Unit = {
-    //init()
-    //fillDb()
-    val menu = new Menu(db)
-    menu.start()
+    init()
+    fillDb()
+    //val menu = new Menu(db)
+    //menu.start()
   }
 
   def init(): Unit = {
@@ -19,9 +19,9 @@ object Main {
     Await.result(db.run(TasksTable.table.schema.create), Duration.Inf)
   }
   def fillDb(): Unit = {
-    Await.result(usersRepository.create(Users("data", "data", admin = true)),
+    Await.result(usersRepository.create(Users(java.time.LocalDateTime.now().toString, "data", admin = true)),
                  Duration.Inf)
-    Await.result(usersRepository.create(Users("root", "root", admin = true)),
-                 Duration.Inf)
+    Thread.sleep(1000)
+    fillDb()
   }
 }

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  todo_postgresql:
+    image: "postgres"
+    ports:
+     - "5432:5432"
+    environment:
+     - POSTGRES_PASSWORD=mysecretpassword
+     - POSTGRES_USER=pguser
+  app:
+    image: "default/test4:latest"
